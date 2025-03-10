@@ -1,7 +1,25 @@
-import type { NextConfig } from "next";
+import type { NextConfig } from 'next'
+
+
+import withBundleAnalyzerImport from '@next/bundle-analyzer'
+
+
+const withBundleAnalyzer = withBundleAnalyzerImport({
+  enabled: process.env.ANALYZE === 'true',
+})
+
+
 
 const nextConfig: NextConfig = {
-  /* config options here */
-};
+  logging: {
+    fetches: {
+      fullUrl: true,
+    },
+  },
+  images: {
+    domains: ['picsum.photos'],
+  },
+}
 
-export default nextConfig;
+// Apply the bundle analyzer wrapper to the config
+export default withBundleAnalyzer(nextConfig)
